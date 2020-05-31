@@ -1,0 +1,62 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title font-weight-bold">
+      <span data-testId="title">{{ movie.title }}</span>
+      <h6 class="movie-year font-weight-normal">({{ movie.year }})</h6>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ movie.genre }}</h6>
+    <hr />
+    <div class="row no-gutters mb-4">
+      <img
+        [src]="movie.poster"
+        class="col-4 w-100 h-100 pr-4"
+        alt="movie poster"
+      />
+      <div class="col-8 card-text">{{ movie.plot }}</div>
+    </div>
+    <ng-container
+      *ngIf="!commentSaved; then editableContent; else readonlyComment"
+    ></ng-container>
+    <ng-template #editableContent>
+      <div data-testId="editable-comment">
+        <textarea
+          data-testId="comment"
+          [(ngModel)]="movie.comment"
+          class="mb-1 w-100"
+          placeholder="Comment"
+          #comment
+        ></textarea>
+        <div
+          [style.color]="
+            movie.comment.trim().length === 0 ? 'darkred' : 'darkgreen'
+          "
+          data-testId="words"
+        >
+          {{ wordCount() }} words
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #readonlyComment>
+      <div data-testId="readonly-comment">
+        <label class="font-weight-bold"> Comment: </label>
+        <p>{{ movie.comment }}</p>
+      </div>
+    </ng-template>
+    <hr />
+    <button
+      data-testId="save-comment"
+      (click)="saveComment()"
+      [disabled]="movie.comment.trim().length === 0"
+      class="btn btn-outline-success mr-2"
+    >
+      {{ commentSaved ? "Edit" : "Save" }} comment
+    </button>
+    <button
+      (click)="clearComment()"
+      [disabled]="movie.comment.trim().length === 0"
+      class="btn btn-outline-warning mr-2"
+    >
+      Clear comment
+    </button>
+  </div>
+</div>

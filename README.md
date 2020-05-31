@@ -1,27 +1,58 @@
-# NgInventory
+# Advanced Angular Workshop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+### with Andrei Antal (contact me at: [antal.a.andrei@gmail.com](mailto:antal.a.andrei@gmail.com))
 
-## Development server
+The starter project we’re going to use was created using the [Angular CLI](https://cli.angular.io/). This tool allows us to quickly scaffold an Angular project that’s ready to build upon. The sample project uses `Angular 9`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Initial setup
 
-## Code scaffolding
+## 1. Environment
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Make sure you have Node installed on your machine (Node version >= 12 and NPM >= 6).
+If not, install node and follow the instructions from [their homepage](https://nodejs.org/en/download/) and make sure you choose the version corresponding to you machine.
 
-## Build
+## 2. Installing the Angular CLI
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Open your terminal/command prompt application and install the Angular CLI globally because it will allow us to access the `ng` command from anywhere.
 
-## Running unit tests
+- Run the following command:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+npm install -g @angular/cli
+```
 
-## Running end-to-end tests
+To check if the tool installed correctly, type in the following command to output the version:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+ng --version
+```
 
-## Further help
+## 3. Get the code and install the dependencies
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Navigate to your work folder and clone the git repository.
+
+- Run the following command
+
+```
+git clone https://github.com/andrei-antal/angular_adv_ws.git
+```
+
+- Navigate to the project folder
+
+```
+cd angular_adv_ws
+```
+
+- After you've navigated to the project folder, install project dependencies using the following command:
+
+```
+npm install
+```
+
+- If the installation terminated without errors, you can now start the application by running the following command:
+
+```
+ng serve
+```
+
+This will start a local development server with live reload options (Every time you change the code and save a file, the app will automatically restart). Open the browser and navigate to the following address: [http://localhost:4200](http://localhost:4200). If the app started correctly, congratulations, you’re all set!

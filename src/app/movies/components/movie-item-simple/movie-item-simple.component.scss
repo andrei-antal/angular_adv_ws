@@ -1,0 +1,18 @@
+$card-width: 525px;
+
+:host {
+  display: block;
+
+  .card {
+    width: $card-width;
+  }
+
+  .movie-year {
+    font-size: 0.8em;
+  }
+
+  .card-subtitle,
+  .card-text {
+    font-size: 0.9em;
+  }
+}

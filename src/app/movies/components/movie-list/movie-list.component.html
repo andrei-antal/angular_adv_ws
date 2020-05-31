@@ -1,0 +1,17 @@
+<a routerLink="/movies/new" class="btn btn-primary">New Movie</a>
+<div class="py-4">
+  <input placeholder="Search movies" #searchField />
+</div>
+<ng-container *ngIf="movies$ | async as movies">
+  <div *ngIf="movies.length; else empty">
+    <ngi-movie-item
+      *ngFor="let movie of movies; trackBy: trackByFn"
+      [movie]="movie"
+      (commentUpdate)="handleCommentUpdate($event)"
+      (movieDelete)="handleMovieDelete($event)"
+    ></ngi-movie-item>
+  </div>
+  <ng-template #empty>
+    No movies found
+  </ng-template>
+</ng-container>

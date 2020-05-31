@@ -1,0 +1,6 @@
+<i
+  *ngFor="let state of starStates; let i = index"
+  class="fas fa-star"
+  [class.filled-star]="state"
+  (click)="ratingChange.emit(i + 1)"
+></i>

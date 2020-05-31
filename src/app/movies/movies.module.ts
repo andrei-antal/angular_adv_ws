@@ -10,6 +10,7 @@ import { MovieListStaticComponent } from './components/movie-list-static/movie-l
 import { MovieItemSimpleComponent } from './components/movie-item-simple/movie-item-simple.component';
 import { WordCountPipe } from './pipes/word-count.pipe';
 import { MovieImageFallbackDirective } from './directives/movie-image-fallback.directive';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MovieImageFallbackDirective } from './directives/movie-image-fallback.d
     MovieItemSimpleComponent,
     WordCountPipe,
     MovieImageFallbackDirective,
+    RatingComponent,
   ],
   imports: [
     CommonModule,

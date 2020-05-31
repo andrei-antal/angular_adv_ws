@@ -14,7 +14,11 @@ import { MoviesValidatorsService } from '../../services/movies-validators.servic
 export class MovieDetailReactiveComponent implements OnInit {
   public movieForm: FormGroup = this.fb.group({
     title: this.fb.control('', Validators.required),
-    genre: this.fb.control('', [Validators.required, this.movieValidators.genre]),
+    genre: this.fb.control('', {
+      updateOn: 'blur',
+      validators: Validators.required,
+      asyncValidators: this.movieValidators.genreAsync.bind(this)
+    }),
     year: this.fb.control('', Validators.required),
     plot: this.fb.control('', Validators.required),
     poster: this.fb.control(''),

@@ -10,11 +10,16 @@ import { Movie } from '../model/movie';
   providedIn: 'root',
 })
 export class MovieService {
+
   private movies: Subject<Movie[]> = new Subject();
   private apiUrl = 'http://localhost:3000/movies';
   public readonly movies$: Observable<Movie[]> = this.movies.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  getGenres(): Observable<string[]> {
+    return this.http.get<string[]>(`http://localhost:3000/genres`);
+  }
 
   getMovie(movieId: string): Observable<Movie> {
     if (!movieId) {

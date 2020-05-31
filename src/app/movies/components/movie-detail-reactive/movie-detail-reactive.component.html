@@ -8,24 +8,29 @@
         <div class="form-group">
           <label for="movieTitle">Title</label>
           <input name="title" class="form-control" id="movieTitle" placeholder="Enter title" formControlName="title">
+          <div class="invalid-feedback" *ngIf="movieForm.controls.title.invalid && movieForm.controls.title.dirty">Title required</div>
         </div>
         <div class="form-group">
           <label for="movieGenre">Genre</label>
           <input name="genre" class="form-control" id="movieGenre" placeholder="Enter genre" formControlName="genre">
+          <div class="invalid-feedback" *ngIf="movieForm.controls.genre.errors?.required && movieForm.controls.genre.dirty">Genre required</div>
+          <div class="invalid-feedback" *ngIf="movieForm.controls.genre.errors?.wrongGenre && movieForm.controls.genre.dirty">Not a genre category</div>
         </div>
         <div class="form-group">
           <label for="movieYear">Year</label>
           <input name="year" class="form-control" id="movieYear" placeholder="Enter year" formControlName="year">
+          <div class="invalid-feedback" *ngIf="movieForm.controls.year.invalid && movieForm.controls.year.dirty">Year required</div>
         </div>
         <div class="form-group">
           <label for="moviePlot">Plot</label>
           <input name="plot" class="form-control" id="moviePlot" placeholder="Enter plot" formControlName="plot">
+          <div class="invalid-feedback" *ngIf="movieForm.controls.plot.invalid && movieForm.controls.plot.dirty">Plot required</div>
         </div>
         <div class="form-group">
           <label for="moviePoster">Poster</label>
           <input name="poster" class="form-control" id="moviePoster" placeholder="Enter poster" formControlName="poster">
         </div>
-        <button type="submit" class="btn btn-primary mr-2">Save</button>
+        <button type="submit" class="btn btn-primary mr-2" [disabled]="!movieForm.valid">Save</button>
         <a [routerLink]="['/movies']" class="btn btn-outline-secondary">Cancel</a>
       </form>
       <div class="col-3">

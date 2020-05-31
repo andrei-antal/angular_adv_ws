@@ -12,6 +12,7 @@ import { WordCountPipe } from './pipes/word-count.pipe';
 import { MovieImageFallbackDirective } from './directives/movie-image-fallback.directive';
 import { RatingComponent } from './components/rating/rating.component';
 import { GenreValidatorDirective } from './directives/genre-validator.directive';
+import { MovieDetailReactiveComponent } from '../movies/components/movie-detail-reactive/movie-detail-reactive.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GenreValidatorDirective } from './directives/genre-validator.directive'
     MovieImageFallbackDirective,
     RatingComponent,
     GenreValidatorDirective,
+    MovieDetailReactiveComponent,
   ],
   imports: [
     CommonModule,
@@ -33,8 +35,8 @@ import { GenreValidatorDirective } from './directives/genre-validator.directive'
       { path: '', component: MovieListComponent },
       // { path: '', component: MovieItemSimpleComponent },
       // { path: '', component: MovieListStaticComponent },
-      { path: 'new', component: MovieDetailComponent }, // movies/new
-      { path: ':id', component: MovieDetailComponent }, // movies/1
+      { path: 'new', component: MovieDetailReactiveComponent }, // movies/new
+      { path: ':id', component: MovieDetailReactiveComponent }, // movies/1
     ]),
   ],
   exports: [MovieListComponent],

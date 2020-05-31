@@ -44,7 +44,7 @@ export class MovieDetailComponent implements OnInit {
       this.movieService.createMovie(modifiedMovie).subscribe(this.goBack);
     } else {
       this.movieService
-        .updateMovie(this.movieId, modifiedMovie)
+        .updateMovie(modifiedMovie)
         .subscribe(this.goBack);
     }
   }

@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header">
+    Movie form
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <form class="col-9" [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="movieTitle">Title</label>
+          <input name="title" class="form-control" id="movieTitle" placeholder="Enter title" formControlName="title">
+        </div>
+        <div class="form-group">
+          <label for="movieGenre">Genre</label>
+          <input name="genre" class="form-control" id="movieGenre" placeholder="Enter genre" formControlName="genre">
+        </div>
+        <div class="form-group">
+          <label for="movieYear">Year</label>
+          <input name="year" class="form-control" id="movieYear" placeholder="Enter year" formControlName="year">
+        </div>
+        <div class="form-group">
+          <label for="moviePlot">Plot</label>
+          <input name="plot" class="form-control" id="moviePlot" placeholder="Enter plot" formControlName="plot">
+        </div>
+        <div class="form-group">
+          <label for="moviePoster">Poster</label>
+          <input name="poster" class="form-control" id="moviePoster" placeholder="Enter poster" formControlName="poster">
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Save</button>
+        <a [routerLink]="['/movies']" class="btn btn-outline-secondary">Cancel</a>
+      </form>
+      <div class="col-3">
+        <img ngiMovieImageFallback="assets/noImage2.png" [src]="movieForm.controls.poster.value">
+      </div>
+    </div>
+  </div>
+</div>

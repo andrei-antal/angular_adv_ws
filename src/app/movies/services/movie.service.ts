@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { v1 as uuid } from 'uuid';
 
 import { Movie } from '../model/movie';
 
@@ -16,7 +17,26 @@ export class MovieService {
   constructor(private http: HttpClient) {}
 
   getMovie(movieId: string): Observable<Movie> {
+    if (!movieId) {
+      return of({
+        id: uuid(),
+        title: '',
+        genre: '',
+        plot: '',
+        year: null,
+        comment: '',
+        poster: '',
+      });
+    }
     return this.http.get<Movie>(`${this.apiUrl}/${movieId}`);
+  }
+
+  createMovie(movie: Movie) {
+    return this.http.post(`${this.apiUrl}`, movie);
+  }
+
+  updateMovie(movie: Movie) {
+    return this.http.put(`${this.apiUrl}/${movie.id}`, movie);
   }
 
   getMovies(searchTerm = ''): void {

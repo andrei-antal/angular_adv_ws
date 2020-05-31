@@ -1,9 +1,36 @@
-<a [routerLink]="['/movies']" class="btn btn-outline-secondary">Back</a>
-<br />
-<br />
-<ng-container *ngIf="movie$ | async as movie; else newMovie">
-  You selected {{movie.title}}
-</ng-container>
-<ng-template #newMovie>
-  New movie
-</ng-template>
+<div class="card" *ngIf="movie$ | async as movie">
+  <div class="card-header">
+    Movie form
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <form class="col-9" #movieForm="ngForm" (ngSubmit)="onSubmit(movieForm)">
+        <div class="form-group">
+          <label for="movieTitle">Title</label>
+          <input name="title" class="form-control" id="movieTitle" placeholder="Enter title" [(ngModel)]="movie.title">
+        </div>
+        <div class="form-group">
+          <label for="movieGenre">Genre</label>
+          <input name="genre" class="form-control" id="movieGenre" placeholder="Enter genre" [(ngModel)]="movie.genre">
+        </div>
+        <div class="form-group">
+          <label for="movieYear">Year</label>
+          <input name="year" class="form-control" id="movieYear" placeholder="Enter year" [(ngModel)]="movie.year">
+        </div>
+        <div class="form-group">
+          <label for="moviePlot">Plot</label>
+          <input name="plot" class="form-control" id="moviePlot" placeholder="Enter plot" [(ngModel)]="movie.plot">
+        </div>
+        <div class="form-group">
+          <label for="moviePoster">Poster</label>
+          <input name="poster" class="form-control" id="moviePoster" placeholder="Enter poster" [(ngModel)]="movie.poster">
+        </div>
+        <button type="submit" class="btn btn-primary mr-2">Save</button>
+        <a [routerLink]="['/movies']" class="btn btn-outline-secondary">Cancel</a>
+      </form>
+      <div class="col-3">
+        <img ngiMovieImageFallback="assets/noImage2.png">
+      </div>
+    </div>
+  </div>
+</div>

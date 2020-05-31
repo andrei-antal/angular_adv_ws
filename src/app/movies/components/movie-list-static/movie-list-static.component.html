@@ -1,0 +1,6 @@
+<ngi-movie-item
+  *ngFor="let movie of movieService.movies; trackBy: trackByFn"
+  [movie]="movie"
+  (commentUpdate)="handleCommentUpdate($event)"
+  (movieDelete)="handleMovieDelete($event)"
+></ngi-movie-item>

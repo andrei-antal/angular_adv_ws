@@ -1,0 +1,9 @@
+<a [routerLink]="['/movies']" class="btn btn-outline-secondary">Back</a>
+<br />
+<br />
+<ng-container *ngIf="movie$ | async as movie; else newMovie">
+  You selected {{movie.title}}
+</ng-container>
+<ng-template #newMovie>
+  New movie
+</ng-template>

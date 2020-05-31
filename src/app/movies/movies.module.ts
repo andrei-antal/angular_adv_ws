@@ -11,6 +11,7 @@ import { MovieItemSimpleComponent } from './components/movie-item-simple/movie-i
 import { WordCountPipe } from './pipes/word-count.pipe';
 import { MovieImageFallbackDirective } from './directives/movie-image-fallback.directive';
 import { RatingComponent } from './components/rating/rating.component';
+import { GenreValidatorDirective } from './directives/genre-validator.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RatingComponent } from './components/rating/rating.component';
     WordCountPipe,
     MovieImageFallbackDirective,
     RatingComponent,
+    GenreValidatorDirective,
   ],
   imports: [
     CommonModule,

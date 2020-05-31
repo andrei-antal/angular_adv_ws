@@ -7,29 +7,34 @@
       <form class="col-9" #movieForm="ngForm" (ngSubmit)="onSubmit(movieForm)">
         <div class="form-group">
           <label for="movieTitle">Title</label>
-          <input name="title" class="form-control" id="movieTitle" placeholder="Enter title" [(ngModel)]="movie.title">
+          <input required name="title" class="form-control" id="movieTitle" placeholder="Enter title" [(ngModel)]="movie.title" #title="ngModel">
+          <div class="invalid-feedback" *ngIf="title.invalid && title.dirty">Title required</div>
         </div>
         <div class="form-group">
           <label for="movieGenre">Genre</label>
-          <input name="genre" class="form-control" id="movieGenre" placeholder="Enter genre" [(ngModel)]="movie.genre">
+          <input required ngiGenreValidator name="genre" class="form-control" id="movieGenre" placeholder="Enter genre" [(ngModel)]="movie.genre" #genre="ngModel">
+          <div class="invalid-feedback" *ngIf="genre.errors?.required && genre.dirty">Genre required</div>
+          <div class="invalid-feedback" *ngIf="genre.errors?.wrongGenre && genre.dirty">Invalid genre category</div>
         </div>
         <div class="form-group">
           <label for="movieYear">Year</label>
-          <input name="year" class="form-control" id="movieYear" placeholder="Enter year" [(ngModel)]="movie.year">
+          <input required name="year" class="form-control" id="movieYear" placeholder="Enter year" [(ngModel)]="movie.year" #year="ngModel">
+          <div class="invalid-feedback" *ngIf="year.invalid && year.dirty">Year required</div>
         </div>
         <div class="form-group">
           <label for="moviePlot">Plot</label>
-          <input name="plot" class="form-control" id="moviePlot" placeholder="Enter plot" [(ngModel)]="movie.plot">
+          <input required name="plot" class="form-control" id="moviePlot" placeholder="Enter plot" [(ngModel)]="movie.plot"  #plot="ngModel">
+          <div class="invalid-feedback" *ngIf="plot.invalid && plot.dirty">Plot required</div>
         </div>
         <div class="form-group">
           <label for="moviePoster">Poster</label>
           <input name="poster" class="form-control" id="moviePoster" placeholder="Enter poster" [(ngModel)]="movie.poster">
         </div>
-        <button type="submit" class="btn btn-primary mr-2">Save</button>
+        <button type="submit" class="btn btn-primary mr-2" [disabled]="movieForm.invalid">Save</button>
         <a [routerLink]="['/movies']" class="btn btn-outline-secondary">Cancel</a>
       </form>
       <div class="col-3">
-        <img ngiMovieImageFallback="assets/noImage2.png">
+        <img [src]="movie.poster" ngiMovieImageFallback="assets/noImage2.png">
       </div>
     </div>
   </div>

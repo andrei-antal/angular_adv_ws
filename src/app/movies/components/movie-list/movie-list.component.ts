@@ -10,7 +10,8 @@ import { Observable, fromEvent, Subject } from 'rxjs';
 import { Movie } from '../../model/movie';
 import { CommentUpdate } from '../movie-item/movie-item.component';
 import { MovieService } from '../../services/movie.service';
-import { debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
+import { debounceTime, startWith, takeUntil } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ngi-movie-list',
@@ -19,17 +20,16 @@ import { debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
 })
 export class MovieListComponent implements AfterViewInit, OnDestroy {
   public movies$: Observable<Movie[]> = this.movieService.movies$;
-  @ViewChild('searchField') private searchField: ElementRef;
+  public searchField = new FormControl('');
   private destroy$ = new Subject();
 
   constructor(public movieService: MovieService) {}
 
   ngAfterViewInit(): void {
     this.movies$ = this.movieService.movies$;
-    fromEvent(this.searchField.nativeElement, 'input')
+    this.searchField.valueChanges
       .pipe(
         debounceTime(300),
-        map((ev: any) => ev.target.value),
         startWith(''),
         takeUntil(this.destroy$)
       )

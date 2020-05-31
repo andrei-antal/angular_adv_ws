@@ -1,6 +1,6 @@
 <a routerLink="/movies/new" class="btn btn-primary">New Movie</a>
 <div class="py-4">
-  <input placeholder="Search movies" #searchField />
+  <input [formControl]="searchField" placeholder="Search movies" />
 </div>
 <ng-container *ngIf="movies$ | async as movies">
   <div *ngIf="movies.length; else empty">

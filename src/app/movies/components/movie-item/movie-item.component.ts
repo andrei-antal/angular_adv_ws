@@ -51,17 +51,4 @@ export class MovieItemComponent implements OnChanges {
       newComment: '',
     });
   }
-
-  public wordCount() {
-    let countValue: number;
-    if (!this.movieComment || this.movieComment.length === 0) {
-      countValue = 0;
-    } else {
-      countValue = this.movieComment
-        .trim()
-        .replace(/  +/g, ' ')
-        .split(' ').length;
-    }
-    return countValue;
-  }
 }

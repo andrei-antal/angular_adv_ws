@@ -1,7 +1,7 @@
 <div class="card mb-4" *ngIf="movie">
   <div class="card-body">
     <h5 class="card-title font-weight-bold">
-      {{ movie.title }}
+      <span data-testId="title">{{ movie.title }}</span>
       <h6 class="movie-year font-weight-normal">({{ movie.year }})</h6>
     </h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ movie.genre }}</h6>
@@ -20,6 +20,7 @@
     ></ng-container>
     <ng-template #editableContent>
       <textarea
+      data-testId="comment"
         [(ngModel)]="movieComment"
         class="mb-1 w-100"
         placeholder="Comment"
@@ -43,6 +44,7 @@
     </div>
     <hr />
     <button
+      data-testId="save-comment"
       (click)="saveComment()"
       [disabled]="movieComment.trim().length === 0"
       class="btn btn-outline-success mr-2"
@@ -50,6 +52,7 @@
       {{ commentSaved ? "Edit" : "Save" }} comment
     </button>
     <button
+      data-testId="clear-comment"
       (click)="clearComment()"
       [disabled]="movieComment.trim().length === 0"
       class="btn btn-outline-warning mr-2"

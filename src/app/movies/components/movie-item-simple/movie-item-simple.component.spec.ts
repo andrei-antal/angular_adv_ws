@@ -77,4 +77,50 @@ describe('MovieItemSimpleComponent', () => {
     // Assert
     expect(wordsElement.style.color).toContain('darkred');
   });
+
+  describe('Movie comment', () => {
+    beforeEach(() => {
+      // Arrange + Act
+      component.movie.comment = 'The comment';
+      component.commentSaved = true;
+      editCommentBtn = movieItemEl.querySelector('[data-testId=save-comment]');
+      fixture.detectChanges();
+    });
+
+    it('should correctly show a readonly comment', async () => {
+      readonlyCommentElement = movieItemEl.querySelector(
+        '[data-testId=readonly-comment]'
+      );
+      editableCommentElement = movieItemEl.querySelector(
+        '[data-testId=editable-comment]'
+      );
+      // Assert
+      expect(readonlyCommentElement).toBeDefined();
+      expect(readonlyCommentElement.textContent).toContain('The comment');
+      expect(editableCommentElement).toBeNull();
+      expect(editCommentBtn.textContent).toContain('Edit comment');
+    });
+
+    it('should correctly transit the comment from readonly to editable', async () => {
+      // Act
+      editCommentBtn.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      // Assert
+      editableCommentElement = movieItemEl.querySelector(
+        '[data-testId=editable-comment]'
+      );
+      commentElement = movieItemEl.querySelector('[data-testId=comment]');
+      readonlyCommentElement = movieItemEl.querySelector(
+        '[data-testId=readonly-comment]'
+      );
+      editCommentBtn = movieItemEl.querySelector('[data-testId=save-comment]');
+
+      expect(editableCommentElement).toBeDefined();
+      expect(commentElement.value).toContain('The comment');
+      expect(readonlyCommentElement).toBeNull();
+      expect(editCommentBtn.textContent).toContain('Save comment');
+    });
+  });
 });

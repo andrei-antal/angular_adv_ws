@@ -9,7 +9,11 @@ export class WordCountPipe implements PipeTransform {
     if (!value || value.length === 0) {
       countValue = 0;
     } else {
-      countValue = value.trim().replace(/  +/g, ' ').split(' ').length;
+      countValue = value.trim()
+        .replace(/\n+/g, ' ')
+        .replace(/  +/g, ' ')
+        .split(' ')
+        .length;
     }
     return `${countValue} ${countSuffix}`;
   }

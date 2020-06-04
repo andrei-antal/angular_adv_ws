@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
@@ -38,6 +39,7 @@ import { MovieDetailReactiveComponent } from '../movies/components/movie-detail-
       { path: 'new', component: MovieDetailReactiveComponent }, // movies/new
       { path: ':id', component: MovieDetailReactiveComponent }, // movies/1
     ]),
+    StoreModule.forFeature('moviesFeature', {})
   ],
   exports: [MovieListComponent],
 })

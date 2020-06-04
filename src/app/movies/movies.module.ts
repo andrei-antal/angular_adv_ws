@@ -14,6 +14,7 @@ import { MovieImageFallbackDirective } from './directives/movie-image-fallback.d
 import { RatingComponent } from './components/rating/rating.component';
 import { GenreValidatorDirective } from './directives/genre-validator.directive';
 import { MovieDetailReactiveComponent } from '../movies/components/movie-detail-reactive/movie-detail-reactive.component';
+import { reducer } from './store/movies.reducers';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { MovieDetailReactiveComponent } from '../movies/components/movie-detail-
       { path: 'new', component: MovieDetailReactiveComponent }, // movies/new
       { path: ':id', component: MovieDetailReactiveComponent }, // movies/1
     ]),
-    StoreModule.forFeature('moviesFeature', {})
+    StoreModule.forFeature('moviesFeature', reducer),
   ],
   exports: [MovieListComponent],
 })

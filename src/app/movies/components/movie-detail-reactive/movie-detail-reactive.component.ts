@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { MovieService } from '../../services/movie.service';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { Movie } from '../../model/movie';
 import { MoviesValidatorsService } from '../../services/movies-validators.service';
-import { MovieState } from '../../store/movies.reducers';
-import { addMovie } from '../../store/movies.actions';
+import { MovieState, getMovieById } from '../../store/movies.reducers';
+import { addMovie, updateMovie } from '../../store/movies.actions';
 
 @Component({
   selector: 'ngi-movie-detail-reactive',
@@ -44,8 +44,7 @@ export class MovieDetailReactiveComponent implements OnInit {
         map((paramsMap): string => paramsMap.get('id')),
         tap((movieId) => (this.movieId = movieId)),
         switchMap((movieId) =>
-          this.movieService
-            .getMovie(movieId)
+          this.store.pipe(select(getMovieById, { movieId }))
             .pipe(tap((movie) => (this.movie = movie)))
         )
       ).subscribe(movie => {
@@ -60,12 +59,11 @@ export class MovieDetailReactiveComponent implements OnInit {
       ...value,
     };
     if (!this.movieId) {
-      // this.movieService.createMovie(modifiedMovie).subscribe(this.goBack);
       this.store.dispatch(addMovie(modifiedMovie));
-      this.goBack();
     } else {
-      this.movieService.updateMovie(modifiedMovie).subscribe(this.goBack);
+      this.store.dispatch(updateMovie(modifiedMovie));
     }
+    this.goBack();
   }
 
   goBack = () => {

@@ -1,29 +1,27 @@
 import { Movie } from '../model/movie';
 import { createReducer, on, Action, createSelector } from '@ngrx/store';
 import { createFeatureSelector } from '@ngrx/store';
+import {
+  EntityState,
+  EntityAdapter,
+  createEntityAdapter,
+  Dictionary
+} from '@ngrx/entity';
 
 import * as MoviesActions from './movies.actions';
 
+const adapter: EntityAdapter<Movie> = createEntityAdapter<Movie>();
+
+const initialEntityState = adapter.getInitialState();
+
 export interface MovieState {
-  movies: Movie[];
+  movies: EntityState<Movie>;
   loading: boolean;
   error: any;
 }
 
 const initialState: MovieState = {
-  movies: [
-    {
-      id: '1',
-      title: 'Star Wars: The Last Jedi',
-      year: 2017,
-      genre: 'Action, Adventure, Fantasy',
-      plot:
-        'Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.',
-      poster:
-        'https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ1MzcxNjg4N15BMl5BanBnXkFtZTgwNzgwMjY4MzI@._V1_SX300.jpg',
-      comment: '',
-    },
-  ],
+  movies: initialEntityState,
   loading: false,
   error: undefined,
 };
@@ -38,7 +36,7 @@ const moviesReducer = createReducer(
     ...state,
     loading: false,
     error: undefined,
-    movies,
+    movies: adapter.setAll(movies, state.movies),
   })),
   on(MoviesActions.loadMoviesFail, (state, error) => ({
     ...state,
@@ -47,7 +45,11 @@ const moviesReducer = createReducer(
   })),
   on(MoviesActions.addMovie, (state, movie) => ({
     ...state,
-    movies: [...state.movies, movie],
+    movies: adapter.addOne(movie, state.movies),
+  })),
+  on(MoviesActions.updateMovieSuccess, (state, movie) => ({
+    ...state,
+    movies: adapter.updateOne(movie, state.movies)
   }))
 );
 
@@ -55,7 +57,8 @@ export function reducer(state: MovieState | undefined, action: Action) {
   return moviesReducer(state, action);
 }
 
-export const getMovies = (state: MovieState): Movie[] => state.movies;
+const getMovies = (state: MovieState): Movie[] =>
+  adapter.getSelectors().selectAll(state.movies);
 
 const getMoviesFeatureState = createFeatureSelector<MovieState>(
   'moviesFeature'
@@ -64,4 +67,17 @@ const getMoviesFeatureState = createFeatureSelector<MovieState>(
 export const getAllMovies = createSelector<MovieState, MovieState, Movie[]>(
   getMoviesFeatureState,
   getMovies
+);
+
+export const getMovieEntities = (state: MovieState): Dictionary<Movie> =>
+  adapter.getSelectors().selectEntities(state.movies);
+
+export const getAllEntities = createSelector<MovieState, MovieState, Dictionary<Movie>>(
+  getMoviesFeatureState,
+  getMovieEntities,
+);
+
+export const getMovieById = createSelector(
+  getAllEntities,
+  (movies: Dictionary<Movie>, props: { movieId: string }) => movies[props.movieId]
 );

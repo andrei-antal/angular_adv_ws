@@ -23,4 +23,16 @@ export class MoviesEffects {
       )
     )
   );
+
+  updateMovie$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(MovieActions.updateMovie),
+        mergeMap((movie) =>
+          this.moviesService.updateMovie(movie).pipe(
+            map((res: any) => MovieActions.updateMovieSuccess({id: res.id, changes: res}))
+          )
+        )
+      )
+    );
 }

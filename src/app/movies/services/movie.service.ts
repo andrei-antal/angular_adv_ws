@@ -49,6 +49,10 @@ export class MovieService {
       .subscribe((data) => this.movies.next(data));
   }
 
+  getMoviesList(): Observable<Movie[]> {
+    return this.http.get<Movie[]>(this.apiUrl);
+  }
+
   updateComment(movieId: string, newComment: string): Observable<Movie> {
     return this.http
       .patch<Movie>(`${this.apiUrl}/${movieId}`, { comment: newComment })

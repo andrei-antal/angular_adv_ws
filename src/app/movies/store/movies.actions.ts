@@ -7,10 +7,12 @@ export const loadMovies = createAction(
 
 export const loadMoviesSuccess = createAction(
   '[Movies] Load movies success',
-   props<{movies: Movie[]}>()
+  props<{movies: Movie[]}>()
 );
 
 export const loadMoviesFail = createAction(
   '[Movies] Load movies fail',
-   props<any>()
+  props<any>()
 );
+
+export const addMovie = createAction('[Movie] Add movie', props<Movie>());

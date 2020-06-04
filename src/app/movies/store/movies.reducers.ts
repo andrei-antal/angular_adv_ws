@@ -44,6 +44,10 @@ const moviesReducer = createReducer(
     ...state,
     loading: false,
     error,
+  })),
+  on(MoviesActions.addMovie, (state, movie) => ({
+    ...state,
+    movies: [...state.movies, movie],
   }))
 );
 
